@@ -1,8 +1,12 @@
 {
   "files": {
-    "main.css": "/Portfolio/static/css/main.b2179475.css",
-    "main.js": "/Portfolio/static/js/main.f0d3c7de.js",
+    "main.css": "/Portfolio/static/css/main.edbbf276.css",
+    "main.js": "/Portfolio/static/js/main.05956aab.js",
     "static/media/Coming-soon.jpg": "/Portfolio/static/media/Coming-soon.2ca1a42d741f8d202552.jpg",
+    "static/media/P3.jpg": "/Portfolio/static/media/P3.9da225bd8d8d309e2695.jpg",
+    "static/media/P2.jpg": "/Portfolio/static/media/P2.504faadf80d85b729e0b.jpg",
+    "static/media/P1.jpg": "/Portfolio/static/media/P1.1cd38427277de60a03a0.jpg",
+    "static/media/P4.jpg": "/Portfolio/static/media/P4.285fdf6d819fdb5b957f.jpg",
     "static/media/DSA.jpeg": "/Portfolio/static/media/DSA.b7fde802042458168b90.jpeg",
     "static/media/trav-rg.jpg": "/Portfolio/static/media/trav-rg.af18649cf2e5a6b3b57a.jpg",
     "static/media/TTT-rg.jpg": "/Portfolio/static/media/TTT-rg.4159db12e99fa61f1e4e.jpg",
@@ -45,11 +49,11 @@
     "static/media/html5-plain.svg": "/Portfolio/static/media/html5-plain.69274ea277b1ee86ba50.svg",
     "static/media/framework7-original.svg": "/Portfolio/static/media/framework7-original.c032729f9c2398df9ee8.svg",
     "static/media/hackerrank-4.svg": "/Portfolio/static/media/hackerrank-4.b6571c6747e5bb5a4f95.svg",
-    "main.b2179475.css.map": "/Portfolio/static/css/main.b2179475.css.map",
-    "main.f0d3c7de.js.map": "/Portfolio/static/js/main.f0d3c7de.js.map"
+    "main.edbbf276.css.map": "/Portfolio/static/css/main.edbbf276.css.map",
+    "main.05956aab.js.map": "/Portfolio/static/js/main.05956aab.js.map"
   },
   "entrypoints": [
-    "static/css/main.b2179475.css",
-    "static/js/main.f0d3c7de.js"
+    "static/css/main.edbbf276.css",
+    "static/js/main.05956aab.js"
   ]
 }
