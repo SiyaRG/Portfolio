@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Portfolio/static/css/main.edbbf276.css",
-    "main.js": "/Portfolio/static/js/main.05956aab.js",
+    "main.css": "/Portfolio/static/css/main.989ebb97.css",
+    "main.js": "/Portfolio/static/js/main.3ac907c4.js",
     "static/media/Coming-soon.jpg": "/Portfolio/static/media/Coming-soon.2ca1a42d741f8d202552.jpg",
     "static/media/P3.jpg": "/Portfolio/static/media/P3.9da225bd8d8d309e2695.jpg",
     "static/media/P2.jpg": "/Portfolio/static/media/P2.504faadf80d85b729e0b.jpg",
@@ -49,11 +49,11 @@
     "static/media/html5-plain.svg": "/Portfolio/static/media/html5-plain.69274ea277b1ee86ba50.svg",
     "static/media/framework7-original.svg": "/Portfolio/static/media/framework7-original.c032729f9c2398df9ee8.svg",
     "static/media/hackerrank-4.svg": "/Portfolio/static/media/hackerrank-4.b6571c6747e5bb5a4f95.svg",
-    "main.edbbf276.css.map": "/Portfolio/static/css/main.edbbf276.css.map",
-    "main.05956aab.js.map": "/Portfolio/static/js/main.05956aab.js.map"
+    "main.989ebb97.css.map": "/Portfolio/static/css/main.989ebb97.css.map",
+    "main.3ac907c4.js.map": "/Portfolio/static/js/main.3ac907c4.js.map"
   },
   "entrypoints": [
-    "static/css/main.edbbf276.css",
-    "static/js/main.05956aab.js"
+    "static/css/main.989ebb97.css",
+    "static/js/main.3ac907c4.js"
   ]
 }
