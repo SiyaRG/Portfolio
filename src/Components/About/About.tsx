@@ -81,7 +81,7 @@ const About = ({ params: { scrollProgress } }: Params) => {
               }}
             />
             <motion.img
-              src="/images/siya(no-back)-2.png"
+              src="/images/Siya3.png"
               alt="Siya Photo"
               style={{
                 width: "100%",

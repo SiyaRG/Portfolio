@@ -6,7 +6,7 @@ const Projects = () => {
       title: "Doctors' Appointment Management System (DAMS)",
       technologies: ["React", "Django", "MySQL"],
       achievements: [
-        "Developed HIPAA-compliant scheduling system handling 500+ daily appointments with real-time availability updates and automated notifications.",
+        "Developed Doctor's Appointment Management System (DAMS) capable of handling 500+ daily appointments with real-time availability updates and automated notifications.",
         "Implemented role-based access control with 95% reduction in unauthorized access attempts and comprehensive audit trails.",
         "Optimized MySQL database queries and indexing, reducing load times from 4.2s to 2.9s and improving system performance by 30%.",
       ],
