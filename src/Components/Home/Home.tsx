@@ -1,5 +1,5 @@
 import HomeInfo from "./HomeInfo";
-
+import React from "react";
 import { motion } from "framer-motion";
 
 const Home = () => {
@@ -490,15 +490,18 @@ const Home = () => {
           minHeight: "100vh",
           width: "95vw",
           zIndex: 0,
+          pointerEvents: "none",
         }}
         className="flex flex-col items-center justify-around overflow-hidden"
       >
-        {icons().map((x) => {
-          return x;
-        })}
+        {icons().map((x, index) => (
+          <React.Fragment key={index}>{x}</React.Fragment>
+        ))}
       </motion.div>
 
-      <HomeInfo />
+      <div style={{ pointerEvents: "auto", position: "relative", zIndex: 2 }}>
+        <HomeInfo />
+      </div>
     </motion.div>
   );
 };

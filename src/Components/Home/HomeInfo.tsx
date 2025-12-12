@@ -43,13 +43,17 @@ const HomeInfo = () => {
 
   return (
     <motion.div
-      style={{ zIndex: 2 }}
       variants={infoVariants}
       initial="hidden"
       animate="show"
-      className="container-fluid flex justify-center items-center m-3 text-center col-md info w-100"
+      className="container-fluid flex flex-col justify-center items-center m-3 text-center"
+      style={{
+        zIndex: 2,
+        maxWidth: "800px",
+        padding: "2rem",
+      }}
     >
-      <motion.h1
+      <motion.h2
         variants={{
           hidden: {
             opacity: 0,
@@ -57,69 +61,192 @@ const HomeInfo = () => {
           show: {
             opacity: 1,
             transition: {
-              duration: 2,
-              delay: 0,
+              duration: 1.5,
+              delay: 0.3,
             },
           },
         }}
-        className="greet"
+        style={{
+          fontSize: "1.5rem",
+          fontWeight: "400",
+          color: "rgba(240, 248, 255, 0.8)",
+          marginBottom: "1rem",
+          letterSpacing: "0.1em",
+        }}
       >
-        Hi there,
+        Hello, I'm
+      </motion.h2>
+      <motion.h1 
+        variants={infoChildVariants}
+        style={{
+          fontSize: "clamp(2.5rem, 8vw, 5rem)",
+          fontWeight: "700",
+          marginBottom: "1rem",
+          lineHeight: "1.2",
+        }}
+      >
+        <span className="webDev" style={{ 
+          background: `linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%)`,
+          WebkitBackgroundClip: "text",
+          WebkitTextFillColor: "transparent",
+          backgroundClip: "text",
+        }}>
+          Siyabonga Soko
+        </span>
       </motion.h1>
-      <motion.h1 variants={infoChildVariants}>I'm Siya...</motion.h1>
-      <motion.h1 variants={infoChildVariants}>
-        Your New <span className="webDev">Web Developer!</span>
-      </motion.h1>
-      <motion.div variants={infoVariants}>
+      <motion.h2 
+        variants={infoChildVariants}
+        style={{
+          fontSize: "clamp(1.2rem, 4vw, 2rem)",
+          fontWeight: "500",
+          color: "aliceblue",
+          marginBottom: "2rem",
+          letterSpacing: "0.05em",
+        }}
+      >
+        Full-Stack Software Developer
+      </motion.h2>
+      <motion.p
+        variants={infoChildVariants}
+        style={{
+          fontSize: "1.1rem",
+          color: "rgba(240, 248, 255, 0.7)",
+          marginBottom: "3rem",
+          maxWidth: "600px",
+          lineHeight: "1.6",
+        }}
+      >
+        Specializing in Django, React, and modern web technologies
+      </motion.p>
+      <motion.div 
+        variants={infoVariants}
+        style={{
+          display: "flex",
+          gap: "1.5rem",
+          justifyContent: "center",
+          alignItems: "center",
+          marginBottom: "3rem",
+        }}
+      >
         <motion.img
           variants={infoChildVariants}
-          style={{ cursor: "pointer" }}
-          whileHover={{
-            rotateX: "30deg",
-            boxShadow: "0 0 .5rem var(--accent)",
+          style={{ 
+            cursor: "pointer",
+            width: "3rem",
+            height: "3rem",
+            padding: "0.5rem",
+            backgroundColor: "rgba(14, 110, 85, 0.2)",
+            borderRadius: "50%",
+            border: "2px solid var(--accent)",
+            transition: "all 0.3s",
           }}
-          whileTap={{ scale: 1.05 }}
+          whileHover={{
+            scale: 1.1,
+            backgroundColor: "rgba(14, 110, 85, 0.4)",
+            boxShadow: "0 0 1rem var(--accent)",
+          }}
+          whileTap={{ scale: 0.95 }}
           src={linkedIn}
           alt="LinkedIn"
           onClick={lI}
         />
         <motion.img
           variants={infoChildVariants}
-          style={{ cursor: "pointer" }}
+          style={{ 
+            cursor: "pointer",
+            width: "3rem",
+            height: "3rem",
+            padding: "0.5rem",
+            backgroundColor: "rgba(14, 110, 85, 0.2)",
+            borderRadius: "50%",
+            border: "2px solid var(--accent)",
+            transition: "all 0.3s",
+          }}
           whileHover={{
-            rotateX: "30deg",
-            boxShadow: "0 0 .5rem var(--accent)",
+            scale: 1.1,
+            backgroundColor: "rgba(14, 110, 85, 0.4)",
+            boxShadow: "0 0 1rem var(--accent)",
           }}
-          whileTap={{ scale: 1.05 }}
-          src={hackerRank}
-          alt="HackerRank"
-          drag
-          dragConstraints={{
-            top: -125,
-            left: -125,
-            right: 125,
-            bottom: 125,
-          }}
-          dragTransition={{ bounceDamping: 20 }}
-          dragMomentum={true}
-          dragElastic={1}
-          dragSnapToOrigin
-          onClick={hR}
-        />
-        <motion.img
-          variants={infoChildVariants}
-          style={{ cursor: "pointer" }}
-          whileHover={{
-            rotateX: "30deg",
-            boxShadow: "0 0 .5rem var(--accent)",
-          }}
-          whileTap={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           src={gitHub}
           alt="GitHub"
           onClick={gH}
         />
+        <motion.img
+          variants={infoChildVariants}
+          style={{ 
+            cursor: "pointer",
+            width: "3rem",
+            height: "3rem",
+            padding: "0.5rem",
+            backgroundColor: "rgba(14, 110, 85, 0.2)",
+            borderRadius: "50%",
+            border: "2px solid var(--accent)",
+            transition: "all 0.3s",
+          }}
+          whileHover={{
+            scale: 1.1,
+            backgroundColor: "rgba(14, 110, 85, 0.4)",
+            boxShadow: "0 0 1rem var(--accent)",
+          }}
+          whileTap={{ scale: 0.95 }}
+          src={hackerRank}
+          alt="HackerRank"
+          onClick={hR}
+        />
       </motion.div>
-      <br />
+      <motion.div
+        variants={infoChildVariants}
+        style={{
+          marginTop: "2rem",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "0.5rem",
+        }}
+        animate={{
+          y: [0, 10, 0],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
+        <motion.span
+          style={{
+            color: "var(--accent)",
+            fontSize: "0.9rem",
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+          }}
+        >
+          Scroll to explore
+        </motion.span>
+        <motion.svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          style={{ color: "var(--accent)" }}
+        >
+          <motion.path
+            d="M7 10L12 15L17 10"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            animate={{
+              y: [0, 5, 0],
+            }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+        </motion.svg>
+      </motion.div>
     </motion.div>
   );
 };

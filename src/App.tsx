@@ -1,4 +1,3 @@
-import "animate.css";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
 import Pageload from "./Components/Pageload.tsx";
@@ -8,6 +7,9 @@ import "./Portfolio.css";
 import About from "./Components/About/About.tsx";
 import Experience from "./Components/Experience/Experience.tsx";
 import Projects from "./Components/Projects/Projects.tsx";
+import Skills from "./Components/Skills/Skills.tsx";
+import Education from "./Components/Education/Education.tsx";
+import Leadership from "./Components/Leadership/Leadership.tsx";
 import Contact from "./Components/Contact/Contact.tsx";
 import { motion, useScroll, useTransform } from "framer-motion";
 import React, { useRef, Suspense } from "react";
@@ -22,9 +24,9 @@ const App = () => {
     [0, 0.25, 0.5, 0.75, 1],
     [
       "rgb(0,0,0)",
-      "rgb(29, 40, 52)",
+      "rgb(14, 30, 20)",
       "rgb(0,0,0)",
-      "rgb(29, 40, 52)",
+      "rgb(20, 15, 10)",
       "rgb(0,0,0)",
     ]
   );
@@ -35,11 +37,14 @@ const App = () => {
         id="main"
         style={{
           background: background,
-          scrollSnapType: "y mandatory",
+          scrollBehavior: "smooth",
           overflowX: "hidden",
           overflowY: "auto",
-          maxHeight: "100vh",
-          maxWidth: "100vw",
+          height: "100vh",
+          width: "100vw",
+          WebkitOverflowScrolling: "touch",
+          overscrollBehavior: "contain",
+          position: "relative",
         }}
       >
         <Suspense fallback={<Pageload />}>
@@ -48,6 +53,9 @@ const App = () => {
         <About params={{ scrollProgress: scrollYProgress }} />
         <Experience />
         <Projects />
+        <Skills />
+        <Education />
+        <Leadership />
         <Contact />
       </motion.div>
     </>
