@@ -31,6 +31,31 @@ body {
   height: 100vh;
   overflow: hidden;
   background-color: #000;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='12' fill='%230e6e55' stroke='%230e6e55' stroke-width='2' opacity='0.8'/%3E%3Ccircle cx='20' cy='20' r='5' fill='%230e6e55'/%3E%3C/svg%3E") 20 20, auto;
+}
+
+body * {
+  cursor: inherit;
+}
+
+/* Interactive elements with larger circle cursor */
+a, 
+a *, 
+button, 
+button *, 
+[role="button"], 
+[role="button"] *,
+input[type="button"], 
+input[type="submit"],
+img[onclick],
+[onclick],
+[style*="cursor: pointer"],
+[style*='cursor: pointer'] {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='14' fill='%230e6e55' stroke='%230e6e55' stroke-width='2' opacity='0.8'/%3E%3Ccircle cx='24' cy='24' r='6' fill='%230e6e55'/%3E%3C/svg%3E") 24 24, pointer !important;
+}
+
+input, textarea, select {
+  cursor: text !important;
 }
 #content {
   margin: 0;
@@ -185,17 +210,31 @@ header {
   }
 }
 
+/* Responsive grid classes for journey summary cards */
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+@media (min-width: 768px) {
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 768px) {
   #exGrid {
-    grid-template-columns: none;
-    grid-template-rows: repeat(4, minmax(0, 1fr));
-    min-height: 80%;
-    width: 80%;
+    grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
+    width: 90%;
+    gap: 1.5rem;
   }
-  #exGrid > div:nth-child(1),
-  #exGrid > div:nth-child(2),
-  #exGrid > div:nth-child(3),
-  #exGrid > div:nth-child(4) {
-    height: 20%;
+  #exGrid > div {
+    min-height: auto;
+    height: auto;
   }
 }

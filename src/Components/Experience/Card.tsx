@@ -31,6 +31,10 @@ const Card = ({ stArr: { vals } }: Params) => {
         borderRadius: ".2rem",
         color: "var(--accent)",
         border: "2px solid var(--accent)",
+        width: "100%",
+        minHeight: "8rem",
+        overflow: "hidden",
+        overflowY: "auto",
       }}
       variants={cardChildVariants}
     >
@@ -41,10 +45,28 @@ const Card = ({ stArr: { vals } }: Params) => {
           width: "2.7rem",
           height: "2.7rem",
           zIndex: 99,
+          flexShrink: 0,
         }}
       />
-      <motion.h4>{vals.year}</motion.h4>
-      <motion.p>{vals.text}</motion.p>
+      <motion.h4
+        style={{
+          marginBottom: "0.5rem",
+          wordWrap: "break-word",
+          overflowWrap: "break-word",
+        }}
+      >
+        {vals.year}
+      </motion.h4>
+      <motion.p
+        style={{
+          wordWrap: "break-word",
+          overflowWrap: "break-word",
+          hyphens: "auto",
+          width: "100%",
+        }}
+      >
+        {vals.text}
+      </motion.p>
     </motion.div>
   );
 };

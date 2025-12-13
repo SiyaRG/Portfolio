@@ -28,6 +28,15 @@ const Projects = () => {
         "RESTful API with automated email system, comprehensive file upload management, and audit trail logging.",
       ],
     },
+    {
+      title: "ReachHub - Trust as a Service Platform (In Development)",
+      technologies: ["React", "TypeScript", "Django"],
+      achievements: [
+        "Developing offline-first Progressive Web App (PWA) with IndexedDB storage and service workers, enabling order creation and management without internet connectivity with automatic synchronization when online.",
+        "Implementing comprehensive vendor management system with real-time order tracking, menu management, payment processing, and business analytics dashboard using Django REST Framework and React with TypeScript.",
+        "Building robust data synchronization system with conflict resolution strategies, JWT authentication, and role-based access control supporting multiple user types (vendors, customers, admins).",
+      ],
+    },
   ];
 
   const containerVariants = {
@@ -132,6 +141,12 @@ const Projects = () => {
               {project.technologies.map((tech, techIndex) => (
                 <motion.span
                   key={techIndex}
+                  whileHover={{
+                    scale: 1.1,
+                    backgroundColor: "rgba(161, 111, 11, 0.4)",
+                    borderColor: "var(--accent-secondary)",
+                  }}
+                  transition={{ duration: 0.2 }}
                   style={{
                     padding: "0.4rem 0.9rem",
                     backgroundColor: "rgba(161, 111, 11, 0.2)",
@@ -140,6 +155,7 @@ const Projects = () => {
                     color: "var(--accent-secondary)",
                     fontSize: "0.85rem",
                     fontWeight: "600",
+                    cursor: "pointer",
                   }}
                 >
                   {tech}

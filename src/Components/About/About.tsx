@@ -75,7 +75,7 @@ const About = () => {
               }}
             />
             <motion.img
-              src={`${import.meta.env.BASE_URL}images/Siya3.png`}
+              src={`${import.meta.env.BASE_URL}images/Siya4.png`}
               alt="Siya Photo"
               style={{
                 width: "100%",
@@ -91,7 +91,7 @@ const About = () => {
                 scale: 1.05,
                 boxShadow: "0 15px 50px rgba(14, 110, 85, 0.5)",
               }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.15 }}
             />
           </motion.div>
         </motion.div>
@@ -193,10 +193,18 @@ const About = () => {
                 initial={{ scale: 0.8, opacity: 0 }}
                 whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.7 + index * 0.1 }}
                 whileHover={{
                   scale: 1.05,
                   x: 5,
+                }}
+                transition={{
+                  default: { 
+                    delay: 0.7 + index * 0.1,
+                    duration: 0.15 
+                  },
+                  hover: { 
+                    duration: 0.1 
+                  }
                 }}
                 style={{
                   padding: "1rem 1.5rem",
@@ -206,7 +214,6 @@ const About = () => {
                   display: "flex",
                   alignItems: "center",
                   gap: "0.75rem",
-                  transition: "all 0.3s",
                 }}
               >
                 <motion.span

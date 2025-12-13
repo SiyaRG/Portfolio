@@ -499,7 +499,15 @@ const Home = () => {
         ))}
       </motion.div>
 
-      <div style={{ pointerEvents: "auto", position: "relative", zIndex: 2 }}>
+      <div style={{ 
+        pointerEvents: "auto", 
+        position: "relative", 
+        zIndex: 2,
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center"
+      }}>
         <HomeInfo />
       </div>
     </motion.div>
