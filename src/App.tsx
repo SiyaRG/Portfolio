@@ -50,7 +50,7 @@ const App = () => {
         <Suspense fallback={<Pageload />}>
           <Home />
         </Suspense>
-        <About params={{ scrollProgress: scrollYProgress }} />
+        <About />
         <Experience />
         <Projects />
         <Skills />

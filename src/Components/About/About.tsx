@@ -1,12 +1,6 @@
 import { motion } from "framer-motion";
 
-type Params = {
-  params: {
-    scrollProgress: any;
-  };
-};
-
-const About = ({ params: { scrollProgress } }: Params) => {
+const About = () => {
   const highlights = [
     "Django & React Expertise",
     "Database Optimization",
@@ -81,7 +75,7 @@ const About = ({ params: { scrollProgress } }: Params) => {
               }}
             />
             <motion.img
-              src="/images/Siya3.png"
+              src={`${import.meta.env.BASE_URL}images/Siya3.png`}
               alt="Siya Photo"
               style={{
                 width: "100%",

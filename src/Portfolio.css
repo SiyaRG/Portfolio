@@ -133,7 +133,7 @@ header {
 .siyaImage {
   width: 20rem;
   height: 20rem;
-  background-image: url("/images/siya(no-back)-2.png");
+  /* background-image: url("/images/siya(no-back)-2.png"); */
   background-size: cover;
   background-position: center;
   border-radius: 50%;
@@ -192,10 +192,10 @@ header {
     min-height: 80%;
     width: 80%;
   }
-  #1,
-  #2,
-  #3,
-  #4 {
+  #exGrid > div:nth-child(1),
+  #exGrid > div:nth-child(2),
+  #exGrid > div:nth-child(3),
+  #exGrid > div:nth-child(4) {
     height: 20%;
   }
 }
