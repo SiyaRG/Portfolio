@@ -116,7 +116,7 @@ const HomeInfo = () => {
           lineHeight: "1.6",
         }}
       >
-        Specializing in Django, React, and modern web technologies
+        Specialising in Django, React, and modern web technologies
       </motion.p>
       <motion.div 
         variants={infoVariants}

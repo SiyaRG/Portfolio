@@ -21,11 +21,11 @@ const Experience = () => {
   const experienceItems = [
     "Developing comprehensive Learning Management System using Django, Django REST Framework, and React with integrated modules for user management, course delivery, and assessment systems.",
     "Implemented JWT authentication with OTP email verification, role-based access control, and multi-tenant architecture supporting multiple vendors with complete data isolation.",
-    "Restructured monolithic API architecture into modular design, organizing code into specialized view and serializer modules, improving maintainability and testability.",
+    "Restructured monolithic API architecture into modular design, organising code into specialised view and serializer modules, improving maintainability and testability.",
     "Developed RESTful API with automated email system, comprehensive file upload management, and audit trail logging using Django middleware.",
     "Built interactive Hotspot question builder with canvas-based drawing tools for creating clickable areas on images.",
-    "Implemented organizational hierarchy management system with multi-level structure, organogram visualization, and user assignment capabilities.",
-    "Optimized MySQL database performance through indexing strategies and query optimization, designing database models with complex relationships.",
+    "Implemented organisational hierarchy management system with multi-level structure, organogram visualisation, and user assignment capabilities.",
+    "Optimised MySQL database performance through indexing strategies and query optimisation, designing database models with complex relationships.",
     "Developed responsive frontend interfaces using Bootstrap, CoreUI, and custom JavaScript components with real-time notifications and dynamic form validation.",
     "Established Git workflows, automated testing suites, and comprehensive API documentation, maintaining high code quality.",
   ];

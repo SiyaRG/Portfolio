@@ -8,7 +8,7 @@ const Projects = () => {
       achievements: [
         "Developed Doctor's Appointment Management System (DAMS) capable of handling 500+ daily appointments with real-time availability updates and automated notifications.",
         "Implemented role-based access control with 95% reduction in unauthorized access attempts and comprehensive audit trails.",
-        "Optimized MySQL database queries and indexing, reducing load times from 4.2s to 2.9s and improving system performance by 30%.",
+        "Optimised MySQL database queries and indexing, reducing load times from 4.2s to 2.9s and improving system performance by 30%.",
       ],
     },
     {
@@ -24,7 +24,7 @@ const Projects = () => {
         "Comprehensive Learning Management System with integrated modules for user management, course delivery, and assessment systems.",
         "Multi-tenant architecture supporting multiple vendors with complete data isolation.",
         "Interactive Hotspot question builder with canvas-based drawing tools for creating clickable areas on images.",
-        "Organizational hierarchy management system with multi-level structure and organogram visualization.",
+        "Organisational hierarchy management system with multi-level structure and organogram visualisation.",
         "RESTful API with automated email system, comprehensive file upload management, and audit trail logging.",
       ],
     },

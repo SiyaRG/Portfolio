@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 const About = () => {
   const highlights = [
     "Django & React Expertise",
-    "Database Optimization",
+    "Database Optimisation",
     "RESTful API Development",
     "Multi-tenant Architecture",
   ];
@@ -156,7 +156,7 @@ const About = () => {
               marginBottom: "1rem",
             }}
           >
-            Full-Stack Software Developer with extensive experience in web application development, specializing in <strong style={{ color: "var(--accent)" }}>Django, React, Python, JavaScript</strong>, and database solutions.
+            Full-Stack Software Developer with extensive experience in web application development, specialising in <strong style={{ color: "var(--accent)" }}>Django, React, Python, JavaScript</strong>, and database solutions.
           </motion.p>
 
           <motion.p
@@ -171,7 +171,7 @@ const About = () => {
               textAlign: "left",
             }}
           >
-            Currently developing a comprehensive <strong style={{ color: "var(--accent-secondary)" }}>Learning Management System</strong> with integrated modules, assessment systems, and RESTful APIs. Skilled in database optimization, API development, multi-tenant architecture, and Agile methodologies with a proven track record of delivering quality solutions on schedule.
+            Currently developing a comprehensive <strong style={{ color: "var(--accent-secondary)" }}>Learning Management System</strong> with integrated modules, assessment systems, and RESTful APIs. Skilled in database optimisation, API development, multi-tenant architecture, and Agile methodologies with a proven track record of delivering quality solutions on schedule.
           </motion.p>
 
           {/* Highlights */}
