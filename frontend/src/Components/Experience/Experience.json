@@ -1,0 +1,32 @@
+
+   [
+    {
+        "id":1,
+        "image":"/icons/html5-plain.svg",
+        "year": "2018",
+        "text": "First line of code"
+    
+    },
+    {
+        "id":2,
+        "image":"/icons/dot-net-plain.svg",
+        "year": "2022",
+        "text": "DSA, C#/.NET/MS SQL Server, XML, Python, UML, git"
+    
+    },
+    {
+        "id":3,
+        "image":"/icons/react-original.svg",
+        "year": "2023",
+        "text": "SDLC, React, Next, Express, REST, MongoDB"
+    
+    },
+    {
+        "id":4,
+        "image":"/icons/python-plain.svg",
+        "year": "2024",
+        "text": "UX/UI DjangoORM MySQL"
+    
+    }
+
+   ]
