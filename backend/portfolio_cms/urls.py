@@ -24,6 +24,6 @@ urlpatterns = [
     path('api/', include('api.urls')),
 ]
 
-# Serve media files in development
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Serve media files (works in both development and production on Render)
+# Note: For production, consider using cloud storage (AWS S3, Cloudinary, etc.)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

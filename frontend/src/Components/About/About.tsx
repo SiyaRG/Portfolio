@@ -218,7 +218,7 @@ const About = () => {
               marginTop: "1rem",
             }}
           >
-            {highlights.map((highlight, index) => (
+            {highlights.map((highlight: string, index: number) => (
               <motion.div
                 key={index}
                 initial={{ scale: 0.8, opacity: 0 }}
