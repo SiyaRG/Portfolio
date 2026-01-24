@@ -182,12 +182,26 @@ const AboutManagement = () => {
             <Typography variant="h5" component="h3" sx={{ marginBottom: '1rem', color: 'primary.main' }}>
               About Section
             </Typography>
-            <Typography variant="body1" sx={{ marginBottom: '0.5rem' }}>
-              <strong>Paragraph 1:</strong> {about.paragraph1}
-            </Typography>
-            <Typography variant="body1" sx={{ marginBottom: '0.5rem' }}>
-              <strong>Paragraph 2:</strong> {about.paragraph2}
-            </Typography>
+            <Box sx={{ marginBottom: '1rem' }}>
+              <Typography variant="body2" sx={{ fontWeight: 600, marginBottom: '0.25rem', color: 'primary.main' }}>
+                Paragraph 1:
+              </Typography>
+              <Typography 
+                variant="body1" 
+                sx={{ marginBottom: '0.5rem' }}
+                dangerouslySetInnerHTML={{ __html: about.paragraph1 || '' }}
+              />
+            </Box>
+            <Box sx={{ marginBottom: '1rem' }}>
+              <Typography variant="body2" sx={{ fontWeight: 600, marginBottom: '0.25rem', color: 'primary.main' }}>
+                Paragraph 2:
+              </Typography>
+              <Typography 
+                variant="body1" 
+                sx={{ marginBottom: '0.5rem' }}
+                dangerouslySetInnerHTML={{ __html: about.paragraph2 || '' }}
+              />
+            </Box>
             {about.highlights && about.highlights.length > 0 && (
               <Box sx={{ marginTop: '1rem' }}>
                 <Typography variant="body1" sx={{ fontWeight: 600, marginBottom: '0.5rem' }}>

@@ -95,7 +95,36 @@ class LeadershipSerializer(serializers.ModelSerializer):
 
 
 class ContactInfoSerializer(serializers.ModelSerializer):
+    def validate_url(self, value):
+        """Validate URL field to allow mailto:, tel:, http://, https://, or empty"""
+        if not value:
+            return value
+        
+        # Check if it's a valid URL scheme
+        valid_schemes = ['mailto:', 'tel:', 'http://', 'https://']
+        if not any(value.startswith(scheme) for scheme in valid_schemes):
+            raise serializers.ValidationError(
+                f"URL must start with one of: {', '.join(valid_schemes)}"
+            )
+        
+        return value
+    
     class Meta:
         model = ContactInfo
         fields = '__all__'
+
+
+class ContactFormSerializer(serializers.Serializer):
+    """Serializer for contact form submissions"""
+    name = serializers.CharField(max_length=200, required=True)
+    email = serializers.EmailField(required=True)
+    phone = serializers.CharField(max_length=20, required=False, allow_blank=True)
+    subject = serializers.CharField(max_length=200, required=True)
+    message = serializers.CharField(max_length=5000, required=True)
+
+    def validate_message(self, value):
+        """Validate message length"""
+        if len(value.strip()) < 10:
+            raise serializers.ValidationError("Message must be at least 10 characters long.")
+        return value
 

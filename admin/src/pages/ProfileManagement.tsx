@@ -12,11 +12,13 @@ import {
   Stack,
   CircularProgress,
 } from '@mui/material';
+import DescriptionIcon from '@mui/icons-material/Description';
 import { adminApi } from '../services/api';
 import LoadingSpinner from '../components/LoadingSpinner';
 import FormModal from '../components/FormModal';
 import ConfirmDialog from '../components/ConfirmDialog';
 import ImageUpload from '../components/ImageUpload';
+import FileUpload from '../components/FileUpload';
 import Toast from '../components/Toast';
 
 const ProfileManagement = () => {
@@ -33,6 +35,7 @@ const ProfileManagement = () => {
     description: '',
     is_active: true,
     profile_image_file: null as File | null,
+    resume_file: null as File | null,
   });
 
   useEffect(() => {
@@ -51,6 +54,7 @@ const ProfileManagement = () => {
           description: prof.description || '',
           is_active: prof.is_active !== false,
           profile_image_file: null,
+          resume_file: null,
         });
       }
     } catch (error) {
@@ -77,6 +81,10 @@ const ProfileManagement = () => {
       
       if (formData.profile_image_file) {
         submitData.append('profile_image', formData.profile_image_file);
+      }
+      
+      if (formData.resume_file) {
+        submitData.append('resume', formData.resume_file);
       }
 
       if (profile) {
@@ -190,6 +198,39 @@ const ProfileManagement = () => {
                 />
               </Box>
             )}
+            {profile.resume && (
+              <Box sx={{ marginTop: '1rem' }}>
+                <Typography variant="body2" sx={{ fontWeight: 600, marginBottom: '0.5rem', color: 'primary.main' }}>
+                  Resume:
+                </Typography>
+                <Box
+                  component="a"
+                  href={profile.resume.startsWith('http') 
+                    ? profile.resume 
+                    : `http://localhost:8000${profile.resume.startsWith('/') ? profile.resume : '/' + profile.resume}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 1,
+                    padding: '0.5rem 1rem',
+                    border: '2px solid',
+                    borderColor: 'primary.main',
+                    borderRadius: '4px',
+                    textDecoration: 'none',
+                    color: 'primary.main',
+                    '&:hover': {
+                      backgroundColor: 'primary.main',
+                      color: 'white',
+                    },
+                  }}
+                >
+                  <DescriptionIcon />
+                  View Resume
+                </Box>
+              </Box>
+            )}
           </CardContent>
           <CardActions sx={{ padding: '1.5rem', paddingTop: 0 }}>
             <Button variant="contained" onClick={() => setIsModalOpen(true)}>
@@ -272,6 +313,12 @@ const ProfileManagement = () => {
             label="Profile Image"
             value={profile?.profile_image}
             onChange={(file) => setFormData({ ...formData, profile_image_file: file })}
+          />
+          <FileUpload
+            label="Resume (PDF or Document)"
+            value={profile?.resume}
+            onChange={(file) => setFormData({ ...formData, resume_file: file })}
+            accept="application/pdf,.doc,.docx"
           />
           <Stack direction="row" spacing={2} justifyContent="flex-end" sx={{ marginTop: '2rem' }}>
             <Button

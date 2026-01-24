@@ -17,6 +17,7 @@ class Profile(TimestampedModel):
     title = models.CharField(max_length=200)
     description = models.TextField()
     profile_image = models.ImageField(upload_to='profile/', null=True, blank=True)
+    resume = models.FileField(upload_to='resumes/', null=True, blank=True, help_text='Upload PDF or document file')
     is_active = models.BooleanField(default=True)
 
     class Meta:
@@ -220,7 +221,7 @@ class ContactInfo(TimestampedModel):
     """Contact information"""
     label = models.CharField(max_length=100)
     value = models.CharField(max_length=200)
-    url = models.URLField(blank=True, null=True)
+    url = models.CharField(max_length=500, blank=True, null=True)  # Changed to CharField to support mailto:, tel:, etc.
     icon = models.ImageField(upload_to='contact/', null=True, blank=True)
     order = models.IntegerField(default=0)
     is_active = models.BooleanField(default=True)
@@ -231,3 +232,33 @@ class ContactInfo(TimestampedModel):
 
     def __str__(self):
         return f"{self.label}: {self.value}"
+
+
+class EmailRateLimit(TimestampedModel):
+    """Rate limiting for contact form emails"""
+    ip_address = models.CharField(max_length=45)  # IPv6 max length
+    last_email_sent = models.DateTimeField(auto_now=True)
+    email_count = models.IntegerField(default=0)
+
+    class Meta:
+        unique_together = ['ip_address']
+        ordering = ['-last_email_sent']
+
+    def __str__(self):
+        return f"{self.ip_address} - {self.email_count} emails"
+
+    def can_send_email(self, rate_limit_minutes, rate_limit_count):
+        """Check if email can be sent based on rate limits"""
+        from django.utils import timezone
+        from datetime import timedelta
+        
+        time_threshold = timezone.now() - timedelta(minutes=rate_limit_minutes)
+        
+        # If last email was sent before the time threshold, reset count
+        if self.last_email_sent < time_threshold:
+            self.email_count = 0
+            self.save()
+            return True
+        
+        # Check if count is below limit
+        return self.email_count < rate_limit_count

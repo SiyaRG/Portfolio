@@ -14,6 +14,8 @@ from .views import (
     ProjectAchievementViewSet, SkillCategoryViewSet, SkillViewSet,
     EducationViewSet, LeadershipViewSet, LeadershipAchievementViewSet,
     ContactInfoViewSet,
+    # Contact form
+    ContactFormView,
 )
 
 # Public router (read-only endpoints)
@@ -53,6 +55,7 @@ urlpatterns = [
     
     # Public API endpoints
     path('public/', include(public_router.urls)),
+    path('public/send-email/', ContactFormView.as_view(), name='send-email'),
     
     # Admin API endpoints
     path('admin/', include(admin_router.urls)),

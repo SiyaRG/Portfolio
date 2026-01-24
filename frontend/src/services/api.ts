@@ -83,6 +83,43 @@ class ApiService {
     const data = await this.request<{ results: any[] }>('/public/contact/');
     return data.results || [];
   }
+
+  // Send Contact Email
+  async sendContactEmail(formData: {
+    name: string;
+    email: string;
+    phone?: string;
+    subject: string;
+    message: string;
+  }): Promise<{ message?: string; error?: string; details?: any }> {
+    const apiKey = import.meta.env.VITE_CONTACT_API_KEY || '';
+    
+    // Debug logging
+    console.log('API Key from env:', apiKey ? `${apiKey.substring(0, 5)}...` : 'NOT FOUND');
+    console.log('Full API Key length:', apiKey.length);
+    
+    if (!apiKey) {
+      throw new Error('Contact API key not configured');
+    }
+
+    const url = `${this.baseUrl}/public/send-email/`;
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': apiKey,
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || `Failed to send email: ${response.statusText}`);
+    }
+
+    return data;
+  }
 }
 
 export const apiService = new ApiService(API_BASE_URL);

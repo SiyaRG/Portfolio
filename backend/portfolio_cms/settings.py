@@ -231,6 +231,37 @@ CORS_ALLOWED_ORIGINS = [
 
 CORS_ALLOW_CREDENTIALS = True
 
+# Allow custom headers (for API key authentication)
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+    'x-api-key',  # For contact form API key
+]
+
 # Allow all origins in development (remove in production)
 if DEBUG:
     CORS_ALLOW_ALL_ORIGINS = True
+
+# Email Configuration
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
+EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_PORT = int(os.getenv('EMAIL_PORT', '587'))
+EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True') == 'True'
+EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL', 'False') == 'True'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER)
+
+# Contact Form API Key (for frontend authentication)
+CONTACT_API_KEY = os.getenv('CONTACT_API_KEY', '')
+
+# Contact Form Rate Limiting
+CONTACT_EMAIL_RATE_LIMIT_MINUTES = int(os.getenv('CONTACT_EMAIL_RATE_LIMIT_MINUTES', '5'))
+CONTACT_EMAIL_RATE_LIMIT_COUNT = int(os.getenv('CONTACT_EMAIL_RATE_LIMIT_COUNT', '1'))

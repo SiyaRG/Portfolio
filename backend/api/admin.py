@@ -2,7 +2,8 @@ from django.contrib import admin
 from .models import (
     Profile, SocialLink, About, Experience, ExperienceItem,
     JourneyCard, Project, ProjectAchievement, SkillCategory,
-    Skill, Education, Leadership, LeadershipAchievement, ContactInfo
+    Skill, Education, Leadership, LeadershipAchievement, ContactInfo,
+    EmailRateLimit
 )
 
 
@@ -94,3 +95,11 @@ class ContactInfoAdmin(admin.ModelAdmin):
     list_display = ['label', 'value', 'order', 'is_active']
     list_filter = ['is_active']
     ordering = ['order']
+
+
+@admin.register(EmailRateLimit)
+class EmailRateLimitAdmin(admin.ModelAdmin):
+    list_display = ['ip_address', 'email_count', 'last_email_sent', 'created_at']
+    list_filter = ['last_email_sent', 'created_at']
+    readonly_fields = ['ip_address', 'email_count', 'last_email_sent', 'created_at', 'updated_at']
+    ordering = ['-last_email_sent']
