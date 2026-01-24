@@ -95,26 +95,47 @@ class ApiService {
     const apiKey = getContactApiKey();
     
     if (!apiKey) {
-      throw new Error('Contact API key not configured');
+      throw new Error('Contact API key not configured. Please check your config.js file.');
     }
 
     const url = `${this.baseUrl}/public/send-email/`;
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-API-Key': apiKey,
-      },
-      body: JSON.stringify(formData),
-    });
+    
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-API-Key': apiKey,
+        },
+        body: JSON.stringify(formData),
+      });
 
-    const data = await response.json();
+      // Handle non-JSON responses
+      let data;
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.includes('application/json')) {
+        data = await response.json();
+      } else {
+        const text = await response.text();
+        throw new Error(`Server error: ${text || response.statusText}`);
+      }
 
-    if (!response.ok) {
-      throw new Error(data.error || `Failed to send email: ${response.statusText}`);
+      if (!response.ok) {
+        // Handle CORS errors
+        if (response.status === 0 || response.status === 403) {
+          throw new Error('CORS error: The backend may not be configured to allow requests from this origin. Please check CORS settings.');
+        }
+        throw new Error(data.error || data.details || `Failed to send email: ${response.statusText}`);
+      }
+
+      return data;
+    } catch (error: any) {
+      // Handle network errors
+      if (error.name === 'TypeError' && error.message.includes('fetch')) {
+        throw new Error('Network error: Unable to reach the server. Please check your internet connection and API URL.');
+      }
+      throw error;
     }
-
-    return data;
   }
 }
 

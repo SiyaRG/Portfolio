@@ -232,9 +232,24 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:5173",
     "http://127.0.0.1:3000",
+    "https://siyarg.github.io",  # GitHub Pages production
 ]
 
+# Allow additional origins from environment variable (comma-separated)
+# Format: CORS_ALLOWED_ORIGINS=https://example.com,https://another.com
+cors_extra_origins = os.getenv('CORS_ALLOWED_ORIGINS', '').split(',')
+CORS_ALLOWED_ORIGINS.extend([origin.strip() for origin in cors_extra_origins if origin.strip()])
+
+# Remove duplicates and empty strings
+CORS_ALLOWED_ORIGINS = list(set([origin for origin in CORS_ALLOWED_ORIGINS if origin]))
+
 CORS_ALLOW_CREDENTIALS = True
+
+# For production, also allow origin patterns (GitHub Pages might use subdirectories)
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://siyarg\.github\.io$",
+    r"^https://.*\.github\.io$",  # Allow any GitHub Pages subdomain
+]
 
 # Allow custom headers (for API key authentication)
 CORS_ALLOW_HEADERS = [
