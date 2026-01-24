@@ -245,6 +245,16 @@ CORS_ALLOWED_ORIGINS = list(set([origin for origin in CORS_ALLOWED_ORIGINS if or
 
 CORS_ALLOW_CREDENTIALS = True
 
+# Allow specific HTTP methods
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
 # For production, also allow origin patterns (GitHub Pages might use subdirectories)
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r"^https://siyarg\.github\.io$",
@@ -265,9 +275,16 @@ CORS_ALLOW_HEADERS = [
     'x-api-key',  # For contact form API key
 ]
 
-# Allow all origins in development (remove in production)
+# Explicitly set CORS behavior
+# In development, allow all origins for easier testing
+# In production, use explicit list from CORS_ALLOWED_ORIGINS
 if DEBUG:
     CORS_ALLOW_ALL_ORIGINS = True
+else:
+    # Ensure we're using explicit origins in production
+    CORS_ALLOW_ALL_ORIGINS = False
+    # Also allow preflight requests
+    CORS_PREFLIGHT_MAX_AGE = 86400  # 24 hours
 
 # Email Configuration
 EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
