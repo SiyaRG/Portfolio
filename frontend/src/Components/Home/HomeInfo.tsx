@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { apiService } from "../../services/api";
+import { getMediaUrl } from "../../utils/api";
 
 const HomeInfo = () => {
   const [profile, setProfile] = useState<any>(null);
@@ -168,7 +169,7 @@ const HomeInfo = () => {
                   boxShadow: "0 0 1rem var(--accent)",
                 } : {}}
                 whileTap={link.url ? { scale: 0.95 } : {}}
-                src={link.icon ? `http://localhost:8000${link.icon}` : undefined}
+                src={getMediaUrl(link.icon)}
                 alt={link.label}
                 onClick={() => link.url && handleSocialClick(link.url)}
               />

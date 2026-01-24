@@ -15,6 +15,7 @@ import {
   Link,
 } from '@mui/material';
 import { adminApi } from '../services/api';
+import { getMediaUrl } from '../utils/api';
 import LoadingSpinner from '../components/LoadingSpinner';
 import FormModal from '../components/FormModal';
 import ConfirmDialog from '../components/ConfirmDialog';
@@ -224,9 +225,7 @@ const ContactManagement = () => {
                       </Typography>
                       <Box
                         component="img"
-                        src={contact.icon.startsWith('http') 
-                          ? contact.icon 
-                          : `http://localhost:8000${contact.icon.startsWith('/') ? contact.icon : '/' + contact.icon}`}
+                        src={getMediaUrl(contact.icon) || '#'}
                         alt="Icon"
                         onError={(e: any) => {
                           e.target.style.display = 'none';

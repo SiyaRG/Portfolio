@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { apiService } from "../../services/api";
+import { getMediaUrl } from "../../utils/api";
 import ContactForm from "./ContactForm";
 
 const Contact = () => {
@@ -139,7 +140,7 @@ const Contact = () => {
                 >
                   {contact.icon && (
                     <motion.img
-                      src={contact.icon.startsWith('http') ? contact.icon : `http://localhost:8000${contact.icon}`}
+                      src={getMediaUrl(contact.icon) || '#'}
                       alt={contact.label}
                       style={{
                         width: "3rem",

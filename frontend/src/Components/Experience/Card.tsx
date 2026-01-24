@@ -39,7 +39,7 @@ const Card = ({ stArr: { vals } }: Params) => {
       variants={cardChildVariants}
     >
       <motion.img
-        src={`${import.meta.env.BASE_URL}${vals.image}`}
+        src={vals.image?.startsWith('http') || vals.image?.startsWith('/') ? vals.image : `${import.meta.env.BASE_URL}${vals.image}`}
         className="pb-2"
         style={{
           width: "2.7rem",

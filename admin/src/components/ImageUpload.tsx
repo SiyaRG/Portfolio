@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import { getMediaUrl } from '../utils/api';
 
 interface ImageUploadProps {
   label: string;
@@ -34,7 +35,7 @@ const ImageUpload = ({ label, value, onChange, accept = 'image/*' }: ImageUpload
       // Otherwise, it might be a relative path that needs the base URL
       const imageUrl = value.startsWith('http') || value.startsWith('data:') 
         ? value 
-        : `http://localhost:8000${value}`;
+        : getMediaUrl(value) || value;
       setPreview(imageUrl);
     } else if (!value && !hasLocalFile && !isDataUrl) {
       // Clear preview when value is explicitly null/undefined and no local file

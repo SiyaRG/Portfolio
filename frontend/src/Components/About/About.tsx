@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { apiService } from "../../services/api";
+import { getMediaUrl } from "../../utils/api";
 
 const About = () => {
   const [about, setAbout] = useState<any>(null);
@@ -95,9 +96,7 @@ const About = () => {
             />
             <motion.img
               src={about?.profile_image 
-                ? (about.profile_image.startsWith('http') 
-                    ? about.profile_image 
-                    : `${import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:8000'}${about.profile_image.startsWith('/') ? about.profile_image : '/' + about.profile_image}`)
+                ? getMediaUrl(about.profile_image) || `${import.meta.env.BASE_URL}images/Siya4.png`
                 : `${import.meta.env.BASE_URL}images/Siya4.png`}
               alt="Siya Photo"
               onError={(e: any) => {

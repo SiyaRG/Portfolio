@@ -161,6 +161,7 @@ Portfolio/
 - `GET /api/public/education/` - Get education entries
 - `GET /api/public/leadership/` - Get leadership section
 - `GET /api/public/contact/` - Get contact information
+- `POST /api/public/send-email/` - Send contact form email (requires X-API-Key header)
 
 ### Admin Endpoints (JWT Authentication Required)
 
@@ -214,15 +215,215 @@ The following models are available:
 
 ## Production Deployment
 
-For production deployment:
+### Environment Variables
 
-1. Set `DEBUG=False` in Django settings
-2. Configure proper `ALLOWED_HOSTS`
-3. Set up a production database (Neon PostgreSQL)
-4. Configure static file serving
-5. Set up environment variables securely
-6. Build frontend apps: `npm run build`
-7. Serve static files through a web server (Nginx, etc.)
+All backend endpoints are configured via environment variables. No hardcoded URLs are used in the codebase.
+
+#### Backend Environment Variables (`backend/.env`)
+
+```env
+# Django Settings
+SECRET_KEY=your-production-secret-key
+DEBUG=False
+ALLOWED_HOSTS=yourdomain.com,www.yourdomain.com
+
+# Database (Neon PostgreSQL)
+DATABASE_URL=postgresql://user:password@host.neon.tech/dbname?sslmode=require
+# OR use individual settings:
+DB_NAME=your-database-name
+DB_USER=your-database-user
+DB_PASSWORD=your-database-password
+DB_HOST=your-neon-host.neon.tech
+DB_PORT=5432
+
+# Email Configuration (for contact form)
+EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+EMAIL_HOST_USER=your-email@gmail.com
+EMAIL_HOST_PASSWORD=your-app-password
+DEFAULT_FROM_EMAIL=your-email@gmail.com
+
+# Contact Form API Key (generate a secure random string)
+CONTACT_API_KEY=your-secure-api-key-here
+
+# Rate Limiting (optional)
+CONTACT_EMAIL_RATE_LIMIT_MINUTES=5
+CONTACT_EMAIL_RATE_LIMIT_COUNT=1
+```
+
+#### Frontend Environment Variables (`frontend/.env`)
+
+```env
+VITE_API_URL=https://api.yourdomain.com/api
+VITE_CONTACT_API_KEY=your-secure-api-key-here
+```
+
+#### Admin CMS Environment Variables (`admin/.env`)
+
+```env
+VITE_API_URL=https://api.yourdomain.com/api
+```
+
+### Deployment Steps
+
+#### 1. Backend Deployment (Django)
+
+1. **Set up production environment:**
+   ```bash
+   cd backend
+   python -m venv venv
+   source venv/bin/activate  # Linux/Mac
+   # or .\venv\Scripts\Activate.ps1  # Windows
+   pip install -r requirements.txt
+   ```
+
+2. **Configure environment variables:**
+   - Create `.env` file with production values (see above)
+   - **Never commit `.env` files to version control**
+
+3. **Run migrations:**
+   ```bash
+   python manage.py migrate
+   ```
+
+4. **Collect static files:**
+   ```bash
+   python manage.py collectstatic --noinput
+   ```
+
+5. **Create superuser:**
+   ```bash
+   python manage.py createsuperuser
+   ```
+
+6. **Deploy using your preferred method:**
+   - **Option A: Using Gunicorn + Nginx**
+     ```bash
+     pip install gunicorn
+     gunicorn portfolio_cms.wsgi:application --bind 0.0.0.0:8000
+     ```
+   - **Option B: Using Waitress (Windows-friendly)**
+     ```bash
+     pip install waitress
+     waitress-serve --port=8000 portfolio_cms.wsgi:application
+     ```
+   - **Option C: Using Docker**
+     - Create a `Dockerfile` and `docker-compose.yml`
+     - Build and run containers
+
+7. **Configure Nginx** (if using):
+   ```nginx
+   server {
+       listen 80;
+       server_name api.yourdomain.com;
+
+       location / {
+           proxy_pass http://127.0.0.1:8000;
+           proxy_set_header Host $host;
+           proxy_set_header X-Real-IP $remote_addr;
+       }
+
+       location /media/ {
+           alias /path/to/backend/media/;
+       }
+
+       location /static/ {
+           alias /path/to/backend/static/;
+       }
+   }
+   ```
+
+8. **Set up SSL/HTTPS** (recommended):
+   - Use Let's Encrypt with Certbot
+   - Configure Nginx for HTTPS
+
+#### 2. Frontend Deployment (Public Portfolio)
+
+1. **Build the production bundle:**
+   ```bash
+   cd frontend
+   npm install
+   npm run build
+   ```
+
+2. **Deploy the `dist/` folder:**
+   - **Option A: Static hosting (Vercel, Netlify, GitHub Pages)**
+     - Connect your repository
+     - Set build command: `npm run build`
+     - Set publish directory: `dist`
+     - Add environment variables in hosting platform settings
+   
+   - **Option B: Nginx**
+     ```nginx
+     server {
+         listen 80;
+         server_name yourdomain.com;
+
+         root /path/to/frontend/dist;
+         index index.html;
+
+         location / {
+             try_files $uri $uri/ /index.html;
+         }
+     }
+     ```
+
+#### 3. Admin CMS Deployment
+
+1. **Build the production bundle:**
+   ```bash
+   cd admin
+   npm install
+   npm run build
+   ```
+
+2. **Deploy the `dist/` folder:**
+   - Use the same methods as frontend
+   - Deploy to a subdomain like `admin.yourdomain.com` or `cms.yourdomain.com`
+   - Ensure environment variables are set correctly
+
+### Post-Deployment Checklist
+
+- [ ] All environment variables are set correctly
+- [ ] `DEBUG=False` in production
+- [ ] `ALLOWED_HOSTS` includes your domain
+- [ ] Database migrations are applied
+- [ ] Static files are collected and served
+- [ ] Media files are accessible
+- [ ] SSL/HTTPS is configured
+- [ ] CORS settings allow your frontend domains
+- [ ] Email service is configured and tested
+- [ ] Contact form API key matches between frontend and backend
+- [ ] Admin CMS is accessible and login works
+- [ ] Public portfolio displays all content correctly
+
+### Security Notes
+
+1. **Never commit `.env` files** - They contain sensitive credentials
+2. **Use strong SECRET_KEY** - Generate with: `python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"`
+3. **Use HTTPS in production** - Required for secure API communication
+4. **Set up proper CORS** - Only allow your frontend domains
+5. **Use environment-specific settings** - Consider using `django-environ` for better environment management
+6. **Regular backups** - Set up automated database backups
+7. **Monitor logs** - Set up logging and monitoring for production
+
+### Troubleshooting
+
+**Media files not loading:**
+- Check `MEDIA_URL` and `MEDIA_ROOT` settings
+- Ensure media files are served correctly (Nginx configuration)
+- Verify file permissions
+
+**CORS errors:**
+- Check `CORS_ALLOWED_ORIGINS` in Django settings
+- Ensure frontend URL is in the allowed origins list
+
+**API connection issues:**
+- Verify `VITE_API_URL` is set correctly in frontend/admin `.env`
+- Check that backend is accessible from frontend domain
+- Verify SSL certificates are valid
 
 ## License
 

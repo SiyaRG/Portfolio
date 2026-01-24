@@ -15,6 +15,7 @@ import {
 } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { adminApi } from '../services/api';
+import { getMediaUrl } from '../utils/api';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -46,10 +47,7 @@ const Layout = ({ children, onLogout }: LayoutProps) => {
 
   const getProfileImageUrl = () => {
     if (!profile?.profile_image) return '';
-    if (profile.profile_image.startsWith('http')) {
-      return profile.profile_image;
-    }
-    return `http://localhost:8000${profile.profile_image.startsWith('/') ? profile.profile_image : '/' + profile.profile_image}`;
+    return getMediaUrl(profile.profile_image) || '';
   };
 
   const getNameParts = () => {

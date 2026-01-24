@@ -17,6 +17,7 @@ import {
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { adminApi } from '../services/api';
+import { getMediaUrl } from '../utils/api';
 import LoadingSpinner from '../components/LoadingSpinner';
 import FormModal from '../components/FormModal';
 import ConfirmDialog from '../components/ConfirmDialog';
@@ -220,9 +221,7 @@ const AboutManagement = () => {
               <Box sx={{ marginTop: '1rem' }}>
                 <Box
                   component="img"
-                  src={about.profile_image.startsWith('http') 
-                    ? about.profile_image 
-                    : `http://localhost:8000${about.profile_image.startsWith('/') ? about.profile_image : '/' + about.profile_image}`}
+                  src={getMediaUrl(about.profile_image) || '#'}
                   alt="About"
                   onError={(e: any) => {
                     e.target.style.display = 'none';

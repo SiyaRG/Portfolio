@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { apiService } from "../../services/api";
+import { getMediaUrl } from "../../utils/api";
 import Card from "./Card.tsx";
 
 const Experience = () => {
@@ -155,7 +156,7 @@ const Experience = () => {
         style={{ minHeight: "10rem" }}
       >
         {journeyCards.map((card) => (
-          <Card key={card.id} stArr={{ vals: { ...card, image: card.image_url || (card.image ? `http://localhost:8000${card.image}` : card.image) } }} />
+          <Card key={card.id} stArr={{ vals: { ...card, image: card.image_url || getMediaUrl(card.image) || card.image } }} />
         ))}
       </motion.div>
     </div>

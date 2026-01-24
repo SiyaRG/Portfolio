@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import DescriptionIcon from '@mui/icons-material/Description';
 import { adminApi } from '../services/api';
+import { getMediaUrl } from '../utils/api';
 import LoadingSpinner from '../components/LoadingSpinner';
 import FormModal from '../components/FormModal';
 import ConfirmDialog from '../components/ConfirmDialog';
@@ -180,9 +181,7 @@ const ProfileManagement = () => {
               <Box sx={{ marginTop: '1rem' }}>
                 <Box
                   component="img"
-                  src={profile.profile_image.startsWith('http') 
-                    ? profile.profile_image 
-                    : `http://localhost:8000${profile.profile_image.startsWith('/') ? profile.profile_image : '/' + profile.profile_image}`}
+                  src={getMediaUrl(profile.profile_image) || '#'}
                   alt="Profile"
                   onError={(e: any) => {
                     e.target.style.display = 'none';
@@ -205,9 +204,7 @@ const ProfileManagement = () => {
                 </Typography>
                 <Box
                   component="a"
-                  href={profile.resume.startsWith('http') 
-                    ? profile.resume 
-                    : `http://localhost:8000${profile.resume.startsWith('/') ? profile.resume : '/' + profile.resume}`}
+                  href={getMediaUrl(profile.resume) || '#'}
                   target="_blank"
                   rel="noopener noreferrer"
                   sx={{

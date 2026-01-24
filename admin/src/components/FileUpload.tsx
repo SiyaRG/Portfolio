@@ -9,6 +9,7 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DescriptionIcon from '@mui/icons-material/Description';
+import { getMediaUrl } from '../utils/api';
 
 interface FileUploadProps {
   label: string;
@@ -49,9 +50,7 @@ const FileUpload = ({ label, value, onChange, accept = 'application/pdf,.doc,.do
 
   const getFileUrl = () => {
     if (!value) return null;
-    return value.startsWith('http') 
-      ? value 
-      : `http://localhost:8000${value.startsWith('/') ? value : '/' + value}`;
+    return getMediaUrl(value) || value;
   };
 
   return (
