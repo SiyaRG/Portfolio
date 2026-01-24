@@ -1,10 +1,10 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+import { getApiBaseUrl, getContactApiKey } from '../utils/api';
 
 class ApiService {
   private baseUrl: string;
 
-  constructor(baseUrl: string) {
-    this.baseUrl = baseUrl;
+  constructor() {
+    this.baseUrl = getApiBaseUrl();
   }
 
   private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
@@ -92,11 +92,7 @@ class ApiService {
     subject: string;
     message: string;
   }): Promise<{ message?: string; error?: string; details?: any }> {
-    const apiKey = import.meta.env.VITE_CONTACT_API_KEY || '';
-    
-    // Debug logging
-    console.log('API Key from env:', apiKey ? `${apiKey.substring(0, 5)}...` : 'NOT FOUND');
-    console.log('Full API Key length:', apiKey.length);
+    const apiKey = getContactApiKey();
     
     if (!apiKey) {
       throw new Error('Contact API key not configured');
@@ -122,5 +118,5 @@ class ApiService {
   }
 }
 
-export const apiService = new ApiService(API_BASE_URL);
+export const apiService = new ApiService();
 

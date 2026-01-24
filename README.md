@@ -370,6 +370,37 @@ VITE_API_URL=https://api.yourdomain.com/api
      }
      ```
 
+   - **Option C: GitHub Pages**
+     
+     GitHub Pages doesn't support environment variables at runtime. Instead, use the `config.js` file:
+     
+     1. **Build the production bundle:**
+        ```bash
+        cd frontend
+        npm install
+        npm run build
+        ```
+     
+     2. **Configure the API URL:**
+        - Edit `frontend/public/config.js` and set your backend API URL:
+          ```javascript
+          window.__APP_CONFIG__ = {
+            API_URL: 'https://your-backend-url.onrender.com/api',
+            CONTACT_API_KEY: 'your-api-key-here',
+          };
+          ```
+        - Rebuild: `npm run build`
+     
+     3. **Deploy to GitHub Pages:**
+        - Push the `dist/` folder contents to the `gh-pages` branch, or
+        - Use GitHub Actions to automate deployment
+        - Configure GitHub Pages to serve from the `gh-pages` branch or `docs/` folder
+     
+     4. **Update config after deployment:**
+        - After deployment, you can edit `config.js` directly in the deployed files
+        - The app will use the updated config on the next page load
+        - No rebuild required for config changes
+
 #### 3. Admin CMS Deployment
 
 1. **Build the production bundle:**
