@@ -27,7 +27,7 @@ const ImageUpload = ({ label, value, onChange, accept = 'image/*' }: ImageUpload
   // Sync preview with value prop changes (but don't override local file selections)
   useEffect(() => {
     // Only update from value prop if we don't have a local file selected
-    const hasLocalFile = fileInputRef.current?.files?.length > 0;
+    const hasLocalFile = (fileInputRef.current?.files?.length ?? 0) > 0;
     const isDataUrl = preview?.startsWith('data:');
     
     if (value && !hasLocalFile && !isDataUrl) {

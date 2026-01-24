@@ -171,7 +171,7 @@ const EducationManagement = () => {
 
       <Grid container spacing={3} sx={{ marginTop: '2rem' }}>
         {education.length === 0 ? (
-          <Grid item xs={12}>
+          <Grid size={12}>
             <Card
               sx={{
                 textAlign: 'center',
@@ -192,7 +192,7 @@ const EducationManagement = () => {
           </Grid>
         ) : (
           education.map((edu) => (
-            <Grid item xs={12} key={edu.id} sx={{ width: '100%', flexBasis: '100%', maxWidth: '100%' }}>
+            <Grid size={12} key={edu.id} sx={{ width: '100%', flexBasis: '100%', maxWidth: '100%' }}>
               <Card sx={{ width: '100%' }}>
                 <CardContent>
                   <Typography variant="h6" component="h3" sx={{ marginBottom: '0.5rem', color: 'primary.main' }}>

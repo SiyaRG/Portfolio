@@ -186,7 +186,7 @@ const ProjectsManagement = () => {
     }
   };
 
-  const handleDeleteItem = async (project: any, item: any) => {
+  const handleDeleteItem = async (_project: any, item: any) => {
     setDeletingItemId(item.id);
     try {
       await adminApi.deleteProjectAchievement(item.id);
@@ -242,7 +242,7 @@ const ProjectsManagement = () => {
 
       <Grid container spacing={3} sx={{ marginTop: '2rem' }}>
         {projects.length === 0 ? (
-          <Grid item xs={12}>
+          <Grid size={12}>
             <Card
               sx={{
                 textAlign: 'center',
@@ -263,7 +263,7 @@ const ProjectsManagement = () => {
           </Grid>
         ) : (
           projects.map((project) => (
-            <Grid item xs={12} key={project.id} sx={{ width: '100%', flexBasis: '100%', maxWidth: '100%' }}>
+            <Grid size={12} key={project.id} sx={{ width: '100%', flexBasis: '100%', maxWidth: '100%' }}>
               <Card sx={{ width: '100%' }}>
                 <CardContent>
                   <Typography variant="h6" component="h3" sx={{ marginBottom: '0.5rem', color: 'primary.main' }}>

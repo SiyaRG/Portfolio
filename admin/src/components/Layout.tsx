@@ -27,7 +27,6 @@ const drawerWidth = 280;
 const Layout = ({ children, onLogout }: LayoutProps) => {
   const location = useLocation();
   const [profile, setProfile] = useState<{ name: string; profile_image?: string } | null>(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadProfile = async () => {
@@ -38,8 +37,6 @@ const Layout = ({ children, onLogout }: LayoutProps) => {
         }
       } catch (error) {
         console.error('Failed to load profile:', error);
-      } finally {
-        setLoading(false);
       }
     };
     loadProfile();
