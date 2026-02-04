@@ -387,6 +387,12 @@ class ContactFormView(APIView):
                     status=status.HTTP_500_INTERNAL_SERVER_ERROR
                 )
             
+            # Check if we're using console backend (development/testing)
+            if settings.EMAIL_BACKEND == 'django.core.mail.backends.console.EmailBackend':
+                print(f"CONSOLE EMAIL - Would send to: {recipient_email}")
+                print(f"CONSOLE EMAIL - Subject: {subject}")
+                print(f"CONSOLE EMAIL - Body: {plain_message[:200]}...")
+            
             # Send HTML email with plain text fallback
             email = EmailMultiAlternatives(
                 subject=subject,
@@ -409,7 +415,18 @@ class ContactFormView(APIView):
                 status=status.HTTP_200_OK
             )
         except Exception as e:
+            # Log the specific error for debugging
+            print(f"Email sending error: {type(e).__name__}: {str(e)}")
+            
+            # Check for specific SMTP/connection errors
+            if "ConnectionRefusedError" in str(type(e)) or "timeout" in str(e).lower():
+                error_msg = 'Email service unavailable. Please try again later or contact the administrator directly.'
+            elif "SMTPAuthenticationError" in str(e):
+                error_msg = 'Email authentication failed. Please check email configuration.'
+            else:
+                error_msg = f'Failed to send email: {str(e)}'
+            
             return Response(
-                {'error': 'Failed to send email', 'details': str(e)},
+                {'error': error_msg, 'details': str(e)},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )

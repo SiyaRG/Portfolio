@@ -297,7 +297,7 @@ else:
     CORS_ALWAYS_SEND_PREFLIGHT_RESPONSE = True
 
 # Email Configuration
-EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
+EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend')  # Fallback to console
 EMAIL_HOST = os.getenv('EMAIL_HOST', 'smtp.gmail.com')
 EMAIL_PORT = int(os.getenv('EMAIL_PORT', '587'))
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True') == 'True'
@@ -305,6 +305,14 @@ EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL', 'False') == 'True'
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER)
+
+# Only use SMTP backend if all required settings are present
+if EMAIL_HOST_USER and EMAIL_HOST_PASSWORD and EMAIL_HOST != 'smtp.gmail.com':
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+elif not EMAIL_HOST_USER or not EMAIL_HOST_PASSWORD:
+    # Use console backend if email credentials are missing
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    print("WARNING: Email credentials not configured. Using console backend for development.")
 
 # Contact Form API Key (for frontend authentication)
 CONTACT_API_KEY = os.getenv('CONTACT_API_KEY', '')
