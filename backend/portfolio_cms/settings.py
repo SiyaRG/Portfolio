@@ -306,6 +306,9 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER)
 
+# Add timeout to prevent hanging
+EMAIL_TIMEOUT = int(os.getenv('EMAIL_TIMEOUT', '10'))  # 10 seconds timeout
+
 # Only use SMTP backend if all required settings are present
 if EMAIL_HOST_USER and EMAIL_HOST_PASSWORD and EMAIL_HOST != 'smtp.gmail.com':
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -313,6 +316,9 @@ elif not EMAIL_HOST_USER or not EMAIL_HOST_PASSWORD:
     # Use console backend if email credentials are missing
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     print("WARNING: Email credentials not configured. Using console backend for development.")
+elif EMAIL_HOST_USER and EMAIL_HOST_PASSWORD:
+    # Use SMTP if credentials exist (your case)
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # Contact Form API Key (for frontend authentication)
 CONTACT_API_KEY = os.getenv('CONTACT_API_KEY', '')

@@ -403,6 +403,10 @@ class ContactFormView(APIView):
             # Attach HTML version
             email.attach_alternative(html_message, "text/html")
             
+            # Add timeout to prevent hanging
+            if hasattr(email, 'connection'):
+                email.connection.timeout = getattr(settings, 'EMAIL_TIMEOUT', 10)
+            
             email.send(fail_silently=False)
 
             # 7. Update rate limit record
@@ -419,10 +423,15 @@ class ContactFormView(APIView):
             print(f"Email sending error: {type(e).__name__}: {str(e)}")
             
             # Check for specific SMTP/connection errors
-            if "ConnectionRefusedError" in str(type(e)) or "timeout" in str(e).lower():
-                error_msg = 'Email service unavailable. Please try again later or contact the administrator directly.'
-            elif "SMTPAuthenticationError" in str(e):
-                error_msg = 'Email authentication failed. Please check email configuration.'
+            error_str = str(e).lower()
+            if "timeout" in error_str or "timed out" in error_str:
+                error_msg = 'Email service timed out. Please try again later or contact the administrator directly.'
+            elif "connectionrefused" in error_str or "connection refused" in error_str:
+                error_msg = 'Email service connection refused. Please check email configuration.'
+            elif "smtpauthenticationerror" in error_str or "authentication" in error_str:
+                error_msg = 'Email authentication failed. Please check email credentials.'
+            elif "smtpheloexception" in error_str or "helo" in error_str:
+                error_msg = 'Email server communication error. Please try again later.'
             else:
                 error_msg = f'Failed to send email: {str(e)}'
             
