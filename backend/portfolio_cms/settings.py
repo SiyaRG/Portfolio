@@ -233,6 +233,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",
     "http://127.0.0.1:3000",
     "https://siyarg.github.io",  # GitHub Pages production
+    "https://siyarg.github.io/portfolio",  # GitHub Pages with subdirectory
 ]
 
 # Allow additional origins from environment variable (comma-separated)
@@ -258,7 +259,9 @@ CORS_ALLOW_METHODS = [
 # For production, also allow origin patterns (GitHub Pages might use subdirectories)
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r"^https://siyarg\.github\.io$",
+    r"^https://siyarg\.github\.io/.*$",  # Allow any subdirectory under siyarg.github.io
     r"^https://.*\.github\.io$",  # Allow any GitHub Pages subdomain
+    r"^https://.*\.github\.io/.*$",  # Allow any subdirectory under any GitHub Pages
 ]
 
 # Allow custom headers (for API key authentication)
