@@ -62,6 +62,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# Ensure CORS middleware is configured to handle all requests
+CORS_ALLOW_ALL_ORIGINS = False  # Explicitly disable in production
+CORS_ALLOW_CREDENTIALS = True
+
 ROOT_URLCONF = 'portfolio_cms.urls'
 
 TEMPLATES = [
@@ -244,7 +248,8 @@ CORS_ALLOWED_ORIGINS.extend([origin.strip() for origin in cors_extra_origins if 
 # Remove duplicates and empty strings
 CORS_ALLOWED_ORIGINS = list(set([origin for origin in CORS_ALLOWED_ORIGINS if origin]))
 
-CORS_ALLOW_CREDENTIALS = True
+# Explicitly whitelist the GitHub Pages origin for production
+CORS_ORIGIN_WHITELIST = CORS_ALLOWED_ORIGINS.copy()
 
 # Allow specific HTTP methods
 CORS_ALLOW_METHODS = [
@@ -288,6 +293,8 @@ else:
     CORS_ALLOW_ALL_ORIGINS = False
     # Also allow preflight requests
     CORS_PREFLIGHT_MAX_AGE = 86400  # 24 hours
+    # Ensure CORS headers are sent for all responses
+    CORS_ALWAYS_SEND_PREFLIGHT_RESPONSE = True
 
 # Email Configuration
 EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')

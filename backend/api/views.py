@@ -1,5 +1,5 @@
 from rest_framework import viewsets, status
-from rest_framework.decorators import action
+from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.views import APIView
@@ -10,6 +10,8 @@ from django.core.mail import send_mail, EmailMultiAlternatives
 from django.conf import settings
 from django.utils import timezone
 from django.utils.html import escape
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 from .models import (
     Profile, SocialLink, About, Experience, ExperienceItem,
     JourneyCard, Project, ProjectAchievement, SkillCategory,
@@ -183,6 +185,7 @@ class ContactInfoViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
 
+@method_decorator(csrf_exempt, name='dispatch')
 class ContactFormView(APIView):
     """Public endpoint for sending contact form emails"""
     permission_classes = [AllowAny]
